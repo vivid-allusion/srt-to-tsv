@@ -1,0 +1,6 @@
+create a remote github repo using gh. 
+Put the content of the following files in the gitignore:
+/USER-FILES/04.INPUT
+USER-FILES/05.OUTPUT
+USER-FILES/06.DONE
+USER-FILES/07.TEMP
