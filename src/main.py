@@ -2,7 +2,7 @@
 SRT to TSV Converter
 
 Converts SRT subtitle files to TSV format with columns: Index, Start, End, Text.
-Reads from USER-FILES/04.INPUT/ and writes to USER-FILES/05.OUTPUT/{timestamp}/.
+Reads from USER-FILES/04.INPUT/ and writes to USER-FILES/05.OUTPUT/{timestamp}_TSV/.
 """
 
 import sys
@@ -49,7 +49,7 @@ def create_output_directory() -> Path:
         Exits with code 3 on directory creation failure.
     """
     timestamp = datetime.now().strftime("%y%m%d_%H%M%S")
-    output_path = OUTPUT_DIR / timestamp
+    output_path = OUTPUT_DIR / f"{timestamp}_TSV"
     
     try:
         output_path.mkdir(parents=True, exist_ok=True)
