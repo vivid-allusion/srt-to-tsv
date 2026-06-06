@@ -161,10 +161,6 @@ cython_debug/
 
 # Project specific
 USER-FILES/00.KB/
-USER-FILES/04.INPUT/
-USER-FILES/05.OUTPUT/
-USER-FILES/06.DONE/
-USER-FILES/07.TEMP/
 USER-FILES/**/.DS_Store
 USER-FILES/03.PROFILES/gpt_image_2x3.yaml
 USER-FILES/03.PROFILES/gpt_image_3x2.yaml
@@ -173,3 +169,12 @@ USER-FILES/03.PROFILES/gpt_image_3x2.yaml
 .venv/
 .ruff_cache/
 250915_replicate
+# User data folders — track structure, ignore content
+USER-FILES/04.INPUT/*
+!USER-FILES/04.INPUT/.gitkeep
+USER-FILES/05.OUTPUT/*
+!USER-FILES/05.OUTPUT/.gitkeep
+USER-FILES/06.DONE/*
+!USER-FILES/06.DONE/.gitkeep
+USER-FILES/07.TEMP/*
+!USER-FILES/07.TEMP/.gitkeep
