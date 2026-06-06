@@ -170,7 +170,6 @@ USER-FILES/03.PROFILES/gpt_image_3x2.yaml
 .ruff_cache/
 250915_replicate
 # User data folders — track structure, ignore content
-# User data folders — track structure, ignore content
 USER-FILES/04.INPUT/*
 !USER-FILES/04.INPUT/.gitkeep
 USER-FILES/05.OUTPUT/*
