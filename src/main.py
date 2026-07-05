@@ -7,7 +7,7 @@ Reads from USER-FILES/04.INPUT/ and writes to USER-FILES/05.OUTPUT/{timestamp}_T
 
 import sys
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Generator
 
 import srt
@@ -110,6 +110,14 @@ def format_timecode(td) -> str:
     return f"{hours:02d}:{minutes:02d}:{seconds:02d},{milliseconds:03d}"
 
 
+def fix_timecode_gaps(subtitles: List) -> None:
+    for i in range(len(subtitles) - 1):
+        current = subtitles[i]
+        next_sub = subtitles[i + 1]
+        if next_sub.start > current.end:
+            current.end = next_sub.start - timedelta(milliseconds=1)
+
+
 def convert_to_dataframe(subtitles: List) -> pd.DataFrame:
     """
     Convert subtitle objects to pandas DataFrame.
@@ -162,6 +170,7 @@ def process_all_files() -> None:
     
     for srt_file in srt_files:
         subtitles = parse_srt_file(srt_file)
+        fix_timecode_gaps(subtitles)
         df = convert_to_dataframe(subtitles)
         
         output_file = output_dir / f"{srt_file.stem}.tsv"
