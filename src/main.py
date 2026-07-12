@@ -2,9 +2,11 @@
 SRT to TSV Converter
 
 Converts SRT subtitle files to TSV format with columns: Index, Start, End, Text.
+Strips HTML tags (e.g. <b>, <i>, <u>) from subtitle text for clean TSV output.
 Reads from USER-FILES/04.INPUT/ and writes to USER-FILES/05.OUTPUT/{timestamp}_TSV/.
 """
 
+import re
 import sys
 from pathlib import Path
 from datetime import datetime, timedelta
@@ -91,6 +93,22 @@ def parse_srt_file(file_path: Path) -> Generator:
     return subtitles
 
 
+def clean_text(text: str) -> str:
+    """
+    Strip HTML tags from subtitle text for clean TSV output.
+
+    Removes all HTML-like tags including <b>, </b>, <i>, </i>, <u>, </u>,
+    <font ...>, and any other tags that appear in subtitle files.
+
+    Args:
+        text: Raw subtitle text potentially containing HTML tags.
+
+    Returns:
+        Cleaned text with all HTML tags removed.
+    """
+    return re.sub(r'<[^>]+>', '', text).strip()
+
+
 def format_timecode(td) -> str:
     """
     Format timedelta to SRT timecode format.
@@ -131,8 +149,9 @@ def convert_to_dataframe(subtitles: List) -> pd.DataFrame:
     rows = []
     
     for subtitle in subtitles:
-        text = ' '.join(subtitle.content.splitlines()) if subtitle.content else ''
-        
+        raw_text = ' '.join(subtitle.content.splitlines()) if subtitle.content else ''
+        text = clean_text(raw_text)
+
         row = {
             'Index': subtitle.index,
             'Start': format_timecode(subtitle.start),
