@@ -13,3 +13,7 @@ python run.py
 ```
 
 Output TSV files are written to `USER-FILES/05.OUTPUT/{timestamp}_TSV/`.
+
+## License
+
+MIT, see [LICENSE](LICENSE).
